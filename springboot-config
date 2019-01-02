@@ -1,0 +1,27 @@
+一 SpringBoot 不同环境读取不同的配置信息文件
+
+配置文件
+第一个配置文件： application.properties //里面可以配置公共的参数
+第二个配置文件： application-product.properties //里面可以配置不同的参数配置
+第三个配置文件： application-test.properties
+# 服务端口
+server.port=8081
+# 激活哪个环境下的配置(在第一个配置文件中配置)
+spring.profiles.active=product
+
+
+二 springboot使用外部application.properties配置文件
+
+问题：每次打包jar文件，都会把配置文件打包进去，需要修改配置文件又需要重新打包
+
+解决方法1：在Application.java类上加上一个注解就可以。@PropertySource("file://E://application.properties") ,file表示协议
+解决方法2：把application.properties文件放到当前目录的 “/config”的子目录下，config目录和项目jar包同级。
+
+springboot允许我们在四个地方放置配置文件：
+1.当前目录的 “/config”的子目录下
+2.当前目录下
+3.classpath根目录的“/config”包下
+4.classpath的根目录下
+如果同时这四个地方都存在配置文件，优先级是1-4.
+使用配置文件之后，spring boo启动时，会自动把配置信息读取到spring容器中，并覆盖spring boot的默认配置
+
